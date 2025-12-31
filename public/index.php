@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="styles.css">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
+
 <body class="bg-gradient-to-br from-indigo-50 to-slate-100 min-h-screen">
     <!-- Navbar -->
     <nav id="navbar" class="bg-white shadow-md">
@@ -42,20 +44,20 @@
                         <div class="rounded-md shadow-sm -space-y-px">
                             <div>
                                 <label for="login-email" class="sr-only">Email address</label>
-                                <input id="login-email" name="email" type="email" required 
-                                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" 
+                                <input id="login-email" name="email" type="email" required
+                                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                     placeholder="Email address">
                             </div>
                             <div>
                                 <label for="login-password" class="sr-only">Password</label>
-                                <input id="login-password" name="password" type="password" required 
-                                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" 
+                                <input id="login-password" name="password" type="password" required
+                                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                     placeholder="Password">
                             </div>
                         </div>
 
                         <div>
-                            <button type="submit" 
+                            <button type="submit"
                                 class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                 Sign in
                             </button>
@@ -76,35 +78,36 @@
                         <div class="space-y-4">
                             <div>
                                 <label for="signup-name" class="block text-sm font-medium text-gray-700">Full Name</label>
-                                <input id="signup-name" name="name" type="text" required 
-                                    class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" 
+                                <input id="signup-name" name="name" type="text" required
+                                    class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                     placeholder="John Doe">
                             </div>
                             <div>
                                 <label for="signup-email" class="block text-sm font-medium text-gray-700">Email address</label>
-                                <input id="signup-email" name="email" type="email" required 
-                                    class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" 
+                                <input id="signup-email" name="email" type="email" required
+                                    class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                     placeholder="email@example.com">
                             </div>
                             <div>
                                 <label for="signup-password" class="block text-sm font-medium text-gray-700">Password</label>
-                                <input id="signup-password" name="password" type="password" required 
-                                    class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" 
+                                <input id="signup-password" name="password" type="password" required
+                                    class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                     placeholder="••••••••">
                             </div>
                             <div>
                                 <label for="signup-role" class="block text-sm font-medium text-gray-700">I am a</label>
-                                <select id="signup-role" name="role" required 
+                                <select id="signup-role" name="role" required
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     <option value="">Select role</option>
                                     <option value="client">Client</option>
                                     <option value="livreur">Livreur (Driver)</option>
+                                    <option value="admin">Admin</option>
                                 </select>
                             </div>
                         </div>
 
                         <div>
-                            <button type="submit" 
+                            <button type="submit"
                                 class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                 Create account
                             </button>
@@ -137,5 +140,5 @@
         lucide.createIcons();
     </script>
 </body>
-</html>
 
+</html>
