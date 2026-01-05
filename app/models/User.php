@@ -9,7 +9,7 @@ class User{
 
     protected string $password;
 
-    protected role $role;
+    protected int $role;
 
     protected bool $status;
 
