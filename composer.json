@@ -1,7 +1,8 @@
 {
     "autoload": {
         "psr-4": {
-            "app" : "app"
+            "App\\": "app/"
         }
-    }
+    },
+    "license": "proprietary"
 }
