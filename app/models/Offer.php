@@ -2,7 +2,9 @@
 
 namespace App\models;
 
-class Offer{
+class Offer extends BaseModelOffer{
+    private int $id;
+
     private int $price;
 
     private string $completion_date;
@@ -107,6 +109,22 @@ class Offer{
     public function setUser_id($user_id)
     {
         $this->user_id = $user_id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of id
+     */ 
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /*Set the value of id*/ 
+    public function setId($id)
+    {
+        $this->id = $id;
 
         return $this;
     }

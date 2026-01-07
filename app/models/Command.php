@@ -2,7 +2,8 @@
 
 namespace App\models;
 
-class Command{
+class Command extends BaseModelCommand{
+    private int $id;
 
     private string $title;
 
@@ -57,6 +58,20 @@ class Command{
     public function setUser_id($user_id)
     {
         $this->user_id = $user_id;
+
+        return $this;
+    }
+
+    /*Get the value of id*/ 
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /*Set the value of id*/ 
+    public function setId($id)
+    {
+        $this->id = $id;
 
         return $this;
     }

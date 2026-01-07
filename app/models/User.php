@@ -1,7 +1,11 @@
 <?php
+
 namespace App\models;
 
-class User{
+class User extends BaseModelUser
+{
+    private int $id;
+
     private string $firstname;
 
     private string $lastname;
@@ -14,25 +18,24 @@ class User{
 
     private bool $status;
 
-/*     public function __construct($firstname, $lastname, $emfindail, $password, $role, $status)
+    public function __construct($firstname, $lastname, $email, $password, $role)
     {
         $this->firstname = $firstname;
         $this->lastname = $lastname;
         $this->email = $email;
         $this->password = $password;
         $this->role = $role;
-        $this->status = $status;
     }
- */
-    
 
-    /*Get the value of firstname*/ 
+
+
+    /*Get the value of firstname*/
     public function getFirstname()
     {
         return $this->firstname;
     }
 
-    /*Set the value of firstname*/ 
+    /*Set the value of firstname*/
     public function setFirstname($firstname)
     {
         $this->firstname = $firstname;
@@ -40,13 +43,13 @@ class User{
         return $this;
     }
 
-    /*Get the value of lastname*/ 
+    /*Get the value of lastname*/
     public function getLastname()
     {
         return $this->lastname;
     }
 
-    /*Set the value of lastname*/ 
+    /*Set the value of lastname*/
     public function setLastname($lastname)
     {
         $this->lastname = $lastname;
@@ -54,13 +57,13 @@ class User{
         return $this;
     }
 
-    /*Get the value of email*/ 
+    /*Get the value of email*/
     public function getEmail()
     {
         return $this->email;
     }
 
-    /*Set the value of email*/ 
+    /*Set the value of email*/
     public function setEmail($email)
     {
         $this->email = $email;
@@ -68,13 +71,13 @@ class User{
         return $this;
     }
 
-    /*Get the value of password*/ 
+    /*Get the value of password*/
     public function getPassword()
     {
         return $this->password;
     }
 
-    /*Set the value of password*/ 
+    /*Set the value of password*/
     public function setPassword($password)
     {
         $this->password = $password;
@@ -82,13 +85,13 @@ class User{
         return $this;
     }
 
-    /*Get the value of role*/ 
+    /*Get the value of role*/
     public function getRole()
     {
         return $this->role;
     }
 
-    /*Set the value of role*/ 
+    /*Set the value of role*/
     public function setRole($role)
     {
         $this->role = $role;
@@ -96,16 +99,30 @@ class User{
         return $this;
     }
 
-    /*Get the value of status*/ 
+    /*Get the value of status*/
     public function getStatus()
     {
         return $this->status;
     }
 
-    /*Set the value of status*/ 
+    /*Set the value of status*/
     public function setStatus($status)
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /*Get the value of id*/
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /*Set the value of id*/
+    public function setId($id)
+    {
+        $this->id = $id;
 
         return $this;
     }

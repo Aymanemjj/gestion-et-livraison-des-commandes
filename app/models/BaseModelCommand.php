@@ -10,42 +10,42 @@ class BaseModelCommand
 
     public function __construct() {}
 
-    public function save($title, $details, $user_id)
+    protected function save()
     {
         $sql = "INSERT INTO commands (title, details, user_id) VALUES (:title, :details, :user_id)";
         $connexion = Database::getConnexion();
 
         $stmt = $connexion->prepare($sql);
 
-        $stmt->bindParam(':title', $title, \PDO::PARAM_STR);
-        $stmt->bindParam(':details', $details, \PDO::PARAM_STR);
-        $stmt->bindParam(':user_id', $user_id, \PDO::PARAM_INT);
+        $stmt->bindParam(':title', $this->title, \PDO::PARAM_STR);
+        $stmt->bindParam(':details', $this->details, \PDO::PARAM_STR);
+        $stmt->bindParam(':user_id', $this->user_id, \PDO::PARAM_INT);
 
         $stmt->execute();
     }
 
-    public function find($title)
+    protected function find()
     {
         $sql = "SELECT * FROM commands WHERE title = :title";
         $connexion = Database::getConnexion();
 
         $stmt = $connexion->prepare($sql);
 
-        $stmt->bindParam(':title', $title, \PDO::PARAM_STR);
+        $stmt->bindParam(':title', $this->title, \PDO::PARAM_STR);
         $stmt->execute();
 
         $stmt->setFetchMode(\PDO::FETCH_CLASS, Command::class);
         return $stmt->fetchAll();
     }
 
-    public function delete($title)
+    protected function delete()
     {
         $sql = "DELETE FROM commands WHERE title = :title";
         $connexion = Database::getConnexion();
 
         $stmt = $connexion->prepare($sql);
 
-        $stmt->bindParam(':title', $title, \PDO::PARAM_STR);
+        $stmt->bindParam(':title', $this->title, \PDO::PARAM_STR);
         $stmt->execute();
         return true;
     }
