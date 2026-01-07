@@ -1,19 +1,20 @@
 <?php
+namespace App\models;
 
 class User{
-    protected string $firstname;
+    private string $firstname;
 
-    protected string $lastname;
+    private string $lastname;
 
-    protected string $email;
+    private string $email;
 
-    protected string $password;
+    private string $password;
 
-    protected int $role;
+    private int $role;
 
-    protected bool $status;
+    private bool $status;
 
-    public function __construct($firstname, $lastname, $email, $password, $role, $status)
+/*     public function __construct($firstname, $lastname, $emfindail, $password, $role, $status)
     {
         $this->firstname = $firstname;
         $this->lastname = $lastname;
@@ -22,7 +23,7 @@ class User{
         $this->role = $role;
         $this->status = $status;
     }
-
+ */
     
 
     /*Get the value of firstname*/ 

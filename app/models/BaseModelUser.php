@@ -2,7 +2,6 @@
 
 namespace App\models;
 
-require 'Database.php';
 class BaseModelUser
 {
 
@@ -37,10 +36,14 @@ class BaseModelUser
         $stmt->bindParam(':email', $email, \PDO::PARAM_STR);
         $stmt->execute();
 
-        /* $stmt->setFetchMode(\PDO::FETCH_CLASS, 'User'); */
-        return $stmt->fetch();
-        return$stmt->fetchObject('User');
+        $stmt->setFetchMode(\PDO::FETCH_CLASS, User::class);
+        return $stmt->fetchAll();
 
+
+        /*         $stmt->setFetchMode(\PDO::FETCH_OBJ,User::class);
+ */
+        /*         return$stmt->fetchObject('User');
+ */
     }
 
     public function delete($email)
@@ -52,5 +55,6 @@ class BaseModelUser
 
         $stmt->bindParam(':email', $email, \PDO::PARAM_STR);
         $stmt->execute();
+        return true;
     }
 }

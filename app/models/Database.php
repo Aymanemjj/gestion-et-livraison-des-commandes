@@ -2,6 +2,7 @@
 
 namespace App\models;
 use \PDO;
+
 class Database
 {
     protected static ?PDO $connexion = null;
