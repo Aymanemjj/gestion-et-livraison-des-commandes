@@ -1,18 +1,18 @@
 <?php
-
+require '../../vendor/autoload.php';
 use App\models\BaseModelUser;
 use App\models\BaseModelCommand;
 use App\models\BaseModelOffer;
 use App\models\User;
 
-require 'Database.php';
+/* require 'Database.php';
 require 'BaseModelUser.php';
 require 'BaseModelCommand.php';
 require 'BaseModelOffer.php';
 require 'User.php';
 require 'Command.php';
 require 'Offer.php';
-
+ */
 
 $user = new User('bob', 'marley', 'bob@email.com','123','1');
 $user->save();

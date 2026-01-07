@@ -35,10 +35,11 @@ class BaseModelUser
 
         $stmt->bindValue(':email', $this->getEmail(), \PDO::PARAM_STR);
         $stmt->execute();
+        
 
-        $stmt->setFetchMode(\PDO::FETCH_CLASS, User::class);
-        return $stmt->fetchAll();
-    }
+/*         $stmt->setFetchMode(\PDO::FETCH_CLASS, User::class);*/
+        return $stmt->fetchObject();
+     }
 
     public function delete()
     {

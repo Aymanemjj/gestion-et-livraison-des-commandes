@@ -34,8 +34,8 @@ class BaseModelCommand
         $stmt->bindParam(':title', $this->title, \PDO::PARAM_STR);
         $stmt->execute();
 
-        $stmt->setFetchMode(\PDO::FETCH_CLASS, Command::class);
-        return $stmt->fetchAll();
+/*         $stmt->setFetchMode(\PDO::FETCH_CLASS, Command::class);
+ */        return $stmt->fetchObject();
     }
 
     protected function delete()

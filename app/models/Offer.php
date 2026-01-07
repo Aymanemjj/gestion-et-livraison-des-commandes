@@ -3,7 +3,7 @@
 namespace App\models;
 
 class Offer extends BaseModelOffer{
-    private int $id;
+    private ?int $id=null;
 
     private int $price;
 
@@ -17,7 +17,7 @@ class Offer extends BaseModelOffer{
 
     private int $user_id;
 
-/*     public function __construct($price, $completion_date, $delivery_type, $vehicule, $command_id, $user_id)
+    public function __construct($price, $completion_date, $delivery_type, $vehicule, $command_id, $user_id)
     {
         $this->price = $price;
         $this->completion_date = $completion_date;
@@ -25,7 +25,7 @@ class Offer extends BaseModelOffer{
         $this->vehicule = $vehicule;
         $this->command_id = $command_id;
         $this->user_id = $user_id;
-    } */
+    }
 
 
 

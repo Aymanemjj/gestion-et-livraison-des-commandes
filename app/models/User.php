@@ -4,7 +4,7 @@ namespace App\models;
 
 class User extends BaseModelUser
 {
-    private int $id;
+    private ?int $id=null;
 
     private string $firstname;
 
@@ -16,9 +16,9 @@ class User extends BaseModelUser
 
     private int $role;
 
-    private bool $status;
+    private ?bool $status=true;
 
-    public function __construct($firstname, $lastname, $email, $password, $role)
+    public function __construct(string $firstname, string $lastname, string $email, string $password, int $role)
     {
         $this->firstname = $firstname;
         $this->lastname = $lastname;

@@ -37,8 +37,8 @@ class BaseModelOffer
         $stmt->bindParam(':price', $this->price, \PDO::PARAM_INT);
         $stmt->execute();
 
-        $stmt->setFetchMode(\PDO::FETCH_CLASS, Offer::class);
-        return $stmt->fetchAll();
+/*         $stmt->setFetchMode(\PDO::FETCH_CLASS, Offer::class);
+ */        return $stmt->fetchObject();
     }
 
     protected function delete()
