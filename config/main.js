@@ -12,7 +12,7 @@ function handleLogin(event) {
     event.preventDefault();
     
     // Just redirect to client dashboard - no checking anything!
-    window.location.href = 'dashboard-client.php';
+    window.location.href = '../views/dashboard-client.php';
 }
 
 // Handle signup form - no validation, just redirect based on role
@@ -24,26 +24,26 @@ function handleSignup(event) {
     
     // If no role selected, default to client
     if (!role || role === '') {
-        window.location.href = 'dashboard-client.php';
+        window.location.href = '../views/dashboard-client.php';
         return; 
     }
     
     // Redirect based on role
     if (role === 'client') {
-        window.location.href = 'dashboard-client.php';
+        window.location.href = '../views/dashboard-client.php';
     } else if (role === 'livreur') {
-        window.location.href = 'dashboard-livreur.php';
+        window.location.href = '../views/dashboard-livreur.php';
     } else if (role === 'admin') {
-        window.location.href = 'dashboard-admin.php';
+        window.location.href = '../views/dashboard-admin.php';
     } else {
         // Default to client
-        window.location.href = 'dashboard-client.php';
+        window.location.href = '../views/dashboard-client.php';
     }
 }
 
 // Logout function - just go back to login page
 function handleLogout() {
-    window.location.href = 'index.php';
+    window.location.href = '../public/index.php';
 }
 
 // ============================================
