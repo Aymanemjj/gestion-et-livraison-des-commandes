@@ -144,7 +144,7 @@ use App\models\User;
     <!-- Notification Toast Container -->
     <div id="toast-container" class="fixed top-4 right-4 z-50 space-y-2"></div>
 
-    <script src="../config/main.js"></script>
+    <script src="config/main.js"></script>
     <script>
         lucide.createIcons();
     </script>

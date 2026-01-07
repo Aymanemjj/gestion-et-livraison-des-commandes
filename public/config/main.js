@@ -8,6 +8,7 @@
 // ============================================
 
 // Handle login form - no validation, just redirect
+
 function handleLogin(event) {
     event.preventDefault();
     
@@ -43,7 +44,7 @@ function handleSignup(event) {
 
 // Logout function - just go back to login page
 function handleLogout() {
-    window.location.href = '../public/index.php';
+    window.location.href = '../index.php';
 }
 
 // ============================================
@@ -410,8 +411,10 @@ document.addEventListener('DOMContentLoaded', function() {
     if (showSignupLink) {
         showSignupLink.addEventListener('click', function(e) {
             e.preventDefault();
-            document.getElementById('login-form').classList.add('hidden');
-            document.getElementById('signup-form').classList.remove('hidden');
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+            if (loginForm) loginForm.classList.add('hidden');
+            if (signupForm) signupForm.classList.remove('hidden');
         });
     }
     
@@ -419,8 +422,10 @@ document.addEventListener('DOMContentLoaded', function() {
     if (showLoginLink) {
         showLoginLink.addEventListener('click', function(e) {
             e.preventDefault();
-            document.getElementById('signup-form').classList.add('hidden');
-            document.getElementById('login-form').classList.remove('hidden');
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+            if (signupForm) signupForm.classList.add('hidden');
+            if (loginForm) loginForm.classList.remove('hidden');
         });
     }
     
