@@ -1,10 +1,34 @@
 <?php
-require'../vendor/autoload.php';
+require '../vendor/autoload.php';
 
 use App\models\BaseModelUser;
 use App\models\BaseModelCommand;
 use App\models\BaseModelOffer;
 use App\models\User;
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -83,13 +107,19 @@ use App\models\User;
                             <a href="#" id="show-login" class="font-medium text-indigo-600 hover:text-indigo-500">sign in</a>
                         </p>
                     </div>
-                    <form class="mt-8 space-y-6" id="signupForm">
+                    <form class="mt-8 space-y-6" id="signupForm" method="post">
                         <div class="space-y-4">
                             <div>
-                                <label for="signup-name" class="block text-sm font-medium text-gray-700">Full Name</label>
-                                <input id="signup-name" name="name" type="text" required
+                                <label for="signup-Fname" class="block text-sm font-medium text-gray-700">First Name</label>
+                                <input id="signup-Fname" name="Firstname" type="text" required
                                     class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    placeholder="John Doe">
+                                    placeholder="John">
+                            </div>
+                            <div>
+                                <label for="signup-Lname" class="block text-sm font-medium text-gray-700">Last Name</label>
+                                <input id="signup-Lname" name="Lastname" type="text" required
+                                    class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    placeholder="Doe">
                             </div>
                             <div>
                                 <label for="signup-email" class="block text-sm font-medium text-gray-700">Email address</label>

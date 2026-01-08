@@ -39,6 +39,7 @@ class BaseModelUser
 
 /*         $stmt->setFetchMode(\PDO::FETCH_CLASS, User::class);*/
         return $stmt->fetchObject();
+        
      }
 
     public function delete()
