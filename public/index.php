@@ -1,6 +1,7 @@
 <?php
 require '../vendor/autoload.php';
 
+use App\models\Auth;
 use App\models\BaseModelUser;
 use App\models\BaseModelCommand;
 use App\models\BaseModelOffer;
@@ -8,6 +9,71 @@ use App\models\User;
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!isset($_POST['submit'])) {
+        return;
+    } else {
+        switch ($_POST['submit']) {
+            case 'signup':
+                $user = new User();
+
+                $user->setFirstname($_POST['firstname']);
+                $user->setLastname($_POST['lastname']);
+                $user->setemail($_POST['email']);
+                $user->setpassword($_POST['password']);
+                $user->setrole($_POST['role']);
+
+                $auth = new Auth();
+                if ($auth->signUp($user)) {
+                    session_start();
+                    session_regenerate_id(true);
+                    $_SESSION['user_id'] = $user->getId();
+                    $_SESSION['email']  = $user->getEmail();
+                    $_SESSION['role'] = $user->getRole();
+                    $_SESSION['logged_in'] = true;
+
+                    switch ($user->getRole()) {
+                        case 'client':
+                            header("Location: views/dashboard-client.php");
+                            break;
+
+                        case 'livreur':
+                            header("Location: views/dashboard-livreur.php");
+                            break;
+                    }
+                    exit;
+                }
+                break;
+            case 'signin':
+                $user = new User();
+
+                $user->setemail($_POST['email']);
+                $user->setpassword($_POST['password']);
+
+                $auth = new Auth();
+                if ($auth->signin($user)) {
+                    session_start();
+                    session_regenerate_id(true);
+                    $_SESSION['user_id'] = $user->getId();
+                    $_SESSION['email']  = $user->getEmail();
+                    $_SESSION['logged_in'] = true;
+
+                    switch ($user->getRole()) {
+                        case 'client':
+                            $_SESSION['role'] = $user->getRole();
+                            header("Location: views/dashboard-client.php");
+                            break;
+
+                        default:
+                            $_SESSION['role'] = $user->getRole();
+                            header("Location: views/dashboard-livreur.php");
+                            break;
+                    }
+                    exit;
+                }
+
+                break;
+        }
+    }
 }
 
 
@@ -90,7 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
 
                         <div>
-                            <button type="submit"
+                            <button type="submit" name="submit" value="signin"
                                 class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                 Sign in
                             </button>
@@ -111,13 +177,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="space-y-4">
                             <div>
                                 <label for="signup-Fname" class="block text-sm font-medium text-gray-700">First Name</label>
-                                <input id="signup-Fname" name="Firstname" type="text" required
+                                <input id="signup-Fname" name="firstname" type="text" required
                                     class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                     placeholder="John">
                             </div>
                             <div>
                                 <label for="signup-Lname" class="block text-sm font-medium text-gray-700">Last Name</label>
-                                <input id="signup-Lname" name="Lastname" type="text" required
+                                <input id="signup-Lname" name="lastname" type="text" required
                                     class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                     placeholder="Doe">
                             </div>
@@ -146,7 +212,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
 
                         <div>
-                            <button type="submit"
+                            <button type="submit" name="submit" value="signup"
                                 class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                 Create account
                             </button>

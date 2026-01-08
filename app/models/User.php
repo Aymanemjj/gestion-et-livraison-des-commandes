@@ -18,7 +18,7 @@ class User extends BaseModelUser
 
     private ?bool $status=true;
 
-    public function __construct(string $firstname, string $lastname, string $email, string $password, int $role)
+/*     public function __construct(string $email, string $password, ?string $firstname, ?string $lastname, ?int $role)
     {
         $this->firstname = $firstname;
         $this->lastname = $lastname;
@@ -26,7 +26,7 @@ class User extends BaseModelUser
         $this->password = $password;
         $this->role = $role;
     }
-
+ */
 
 
     /*Get the value of firstname*/

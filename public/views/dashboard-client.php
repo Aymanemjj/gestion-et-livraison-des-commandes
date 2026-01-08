@@ -1,5 +1,45 @@
+<?php
+
+use App\models\Auth;
+use App\models\User;
+
+require '../../vendor/autoload.php';
+
+session_start();
+
+if (!isset($_SESSION['logged_in'])) {
+    header("Location: ../index.php");
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!isset($_POST['submit'])) {
+        return;
+    }
+    switch ($_POST['submit']) {
+        case 'logout':
+
+            $auth = new Auth();
+            $auth->logOut();
+            break;
+    }
+}
+
+
+?>
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +48,7 @@
     <link rel="stylesheet" href="../config/styles.css">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
+
 <body class="bg-gray-50 min-h-screen">
     <!-- Navbar -->
     <nav id="navbar" class="bg-white shadow-md">
@@ -33,9 +74,11 @@
                         </div>
                     </div>
                     <span id="user-name" class="text-gray-700 font-medium">Client</span>
-                    <button id="logout-btn" class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700">
-                        Logout
-                    </button>
+                    <form method="post">
+                        <button type="submit" name="submit" value="logout" href="../index.php" id="logout-btn" class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700">
+                            Logout
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -82,22 +125,22 @@
             <form id="create-order-form" class="space-y-4">
                 <div>
                     <label for="order-title" class="block text-sm font-medium text-gray-700">Title</label>
-                    <input type="text" id="order-title" required 
+                    <input type="text" id="order-title" required
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                 </div>
                 <div>
                     <label for="order-description" class="block text-sm font-medium text-gray-700">Description</label>
-                    <textarea id="order-description" rows="3" required 
+                    <textarea id="order-description" rows="3" required
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
                 </div>
                 <div>
                     <label for="order-pickup" class="block text-sm font-medium text-gray-700">Pickup Address</label>
-                    <input type="text" id="order-pickup" required 
+                    <input type="text" id="order-pickup" required
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                 </div>
                 <div>
                     <label for="order-delivery" class="block text-sm font-medium text-gray-700">Delivery Address</label>
-                    <input type="text" id="order-delivery" required 
+                    <input type="text" id="order-delivery" required
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                 </div>
                 <div class="flex space-x-2">
@@ -125,22 +168,22 @@
                 <input type="hidden" id="edit-order-id">
                 <div>
                     <label for="edit-order-title" class="block text-sm font-medium text-gray-700">Title</label>
-                    <input type="text" id="edit-order-title" required 
+                    <input type="text" id="edit-order-title" required
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                 </div>
                 <div>
                     <label for="edit-order-description" class="block text-sm font-medium text-gray-700">Description</label>
-                    <textarea id="edit-order-description" rows="3" required 
+                    <textarea id="edit-order-description" rows="3" required
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
                 </div>
                 <div>
                     <label for="edit-order-pickup" class="block text-sm font-medium text-gray-700">Pickup Address</label>
-                    <input type="text" id="edit-order-pickup" required 
+                    <input type="text" id="edit-order-pickup" required
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                 </div>
                 <div>
                     <label for="edit-order-delivery" class="block text-sm font-medium text-gray-700">Delivery Address</label>
-                    <input type="text" id="edit-order-delivery" required 
+                    <input type="text" id="edit-order-delivery" required
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                 </div>
                 <div class="flex space-x-2">
@@ -196,6 +239,5 @@
         }
     </script>
 </body>
+
 </html>
-
-

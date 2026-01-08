@@ -37,8 +37,8 @@ class BaseModelUser
         $stmt->execute();
         
 
-/*         $stmt->setFetchMode(\PDO::FETCH_CLASS, User::class);*/
-        return $stmt->fetchObject();
+        $stmt->setFetchMode(\PDO::FETCH_CLASS, User::class);
+        return $stmt->fetch();
         
      }
 
