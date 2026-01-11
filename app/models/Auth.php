@@ -2,6 +2,8 @@
 
 namespace App\models;
 
+use ReturnTypeWillChange;
+
 class Auth
 {
 
@@ -9,19 +11,76 @@ class Auth
 
 
 
-    public function signUp(object $user): bool
+    public function validSignUp(object $user): bool
     {
+
+
         if (!$this->isValidFirstname($user)) {
             return false;
         }
         if (!$this->isValidLastname($user)) {
             return false;
         }
-        if (!$this->isValidEmail($user)) {
+        if (!$this->isValidEmailSignUp($user)) {
             return false;
         }
-        $user->save();
+        /*         $user->save();
+ */
         return true;
+    }
+
+
+    public function afterMath()
+    {
+        switch ($_POST['submit']) {
+            case 'signup':
+                $user = new User();
+                $user->setters();
+
+
+
+                if (!$this->validSignUp($user)) {
+                    $user->save();
+                    $this->startSession($user);
+                    switch ($user->getRole()) {
+                        case 2:
+                            header("Location: views/dashboard-client.php");
+                            exit;
+                            break;
+                        case 3:
+
+                            header("Location: views/dashboard-livreur.php");
+                            exit;
+                            break;
+                    }
+                }
+                break;
+            case 'signin':
+                $user = new User();
+
+                $user->setters();
+
+                if ($this->signin($user)) {
+
+                    $object = $user->find();
+                    $this->startSession($object);
+
+                    switch ($object->getRole()) {
+                        case 2:
+                            header("Location: views/dashboard-client.php");
+                            break;
+
+                        case 3:
+                            header("Location: views/dashboard-livreur.php");
+                            break;
+                    }
+                    exit;
+                } else {
+                    header("Location: " . $_SERVER['HTTP_REFERER']);
+                }
+
+                break;
+        }
     }
 
 
@@ -30,15 +89,32 @@ class Auth
     public function signIn(object $user): bool
     {
 
-        if (!$this->isValidEmail($user)) {
+        if (!filter_var($user->getEmail(), FILTER_VALIDATE_EMAIL)) {
             return false;
         }
-        if (!$this->isValidPassword($user)) {
+
+        $object = $user->find();
+        if (is_null($object)) {
+            return false;
+        }
+        if (!password_verify($user->getPassword(), $object->getPassword())) {
             return false;
         }
         return true;
     }
 
+
+
+
+    public function startSession($user)
+    {
+        session_start();
+        session_regenerate_id(true);
+        $_SESSION['user_id'] = $user->getId();
+        $_SESSION['email']  = $user->getEmail();
+        $_SESSION['role'] = $user->getRole();
+        $_SESSION['logged_in'] = true;
+    }
     public function logOut()
     {
         session_start();
@@ -56,6 +132,9 @@ class Auth
         $pattern = "/^(.*?)\s([\wáâàãçéêíóôõúüÁÂÀÃÇÉÊÍÓÔÕÚÜ]+\-?'?\w*\.?)$/u";
 
         return preg_match($pattern, $user->getFirstname()) === 1;
+
+
+        return true;
     }
 
     private function isValidLastname(object $user): bool
@@ -63,28 +142,21 @@ class Auth
         $pattern = "/^(.*?)\s([\wáâàãçéêíóôõúüÁÂÀÃÇÉÊÍÓÔÕÚÜ]+\-?'?\w*\.?)$/u";
 
         return preg_match($pattern, $user->getLastname()) === 1;
+
+
+        return true;
     }
 
-    private function isValidEmail(object $user): bool
+    private function isValidEmailSignUp(object $user): bool
     {
         if (!filter_var($user->getEmail(), FILTER_VALIDATE_EMAIL)) {
             return false;
         }
         $object = $user->find();
         if (is_null($object)) {
-            return false;
+            return true;
         } else {
-            if (!$object->getEmail() === $user->getEmail()) {
-                return false;
-            } else {
-                return true;
-            }
+            return false;
         }
-    }
-
-    private function isValidPassword($user): bool
-    {
-        $object = $user->find();
-        return password_verify($object->getPassword(), $user->getPassword());
     }
 }

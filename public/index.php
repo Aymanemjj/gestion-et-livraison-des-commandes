@@ -8,78 +8,24 @@ use App\models\BaseModelOffer;
 use App\models\User;
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!isset($_POST['submit'])) {
-        return;
-    } else {
-        switch ($_POST['submit']) {
-            case 'signup':
-                $user = new User();
 
-                $user->setFirstname($_POST['firstname']);
-                $user->setLastname($_POST['lastname']);
-                $user->setemail($_POST['email']);
-                $user->setpassword($_POST['password']);
-                $user->setrole($_POST['role']);
 
-                $auth = new Auth();
-                if ($auth->signUp($user)) {
-                    session_start();
-                    session_regenerate_id(true);
-                    $_SESSION['user_id'] = $user->getId();
-                    $_SESSION['email']  = $user->getEmail();
-                    $_SESSION['role'] = $user->getRole();
-                    $_SESSION['logged_in'] = true;
+session_start();
 
-                    switch ($user->getRole()) {
-                        case 'client':
-                            header("Location: views/dashboard-client.php");
-                            break;
-
-                        case 'livreur':
-                            header("Location: views/dashboard-livreur.php");
-                            break;
-                    }
-                    exit;
-                }
-                break;
-            case 'signin':
-                $user = new User();
-
-                $user->setemail($_POST['email']);
-                $user->setpassword($_POST['password']);
-
-                $auth = new Auth();
-                if ($auth->signin($user)) {
-                    session_start();
-                    session_regenerate_id(true);
-                    $_SESSION['user_id'] = $user->getId();
-                    $_SESSION['email']  = $user->getEmail();
-                    $_SESSION['logged_in'] = true;
-
-                    switch ($user->getRole()) {
-                        case 'client':
-                            $_SESSION['role'] = $user->getRole();
-                            header("Location: views/dashboard-client.php");
-                            break;
-
-                        default:
-                            $_SESSION['role'] = $user->getRole();
-                            header("Location: views/dashboard-livreur.php");
-                            break;
-                    }
-                    exit;
-                }
-
-                break;
-        }
-    }
+if (isset($_SESSION['logged_in'])) {
+    header("Location: " . $_SERVER['HTTP_REFERER']);
+    exit;
 }
 
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
+    $auth = new Auth();
+    $auth->afterMath();
+
+}
 
 
 
@@ -139,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <a href="#" id="show-signup" class="font-medium text-indigo-600 hover:text-indigo-500">create a new account</a>
                         </p>
                     </div>
-                    <form class="mt-8 space-y-6" id="loginForm">
+                    <form class="mt-8 space-y-6" id="loginForm" action="" method="post">
                         <div class="rounded-md shadow-sm -space-y-px">
                             <div>
                                 <label for="login-email" class="sr-only">Email address</label>
@@ -173,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <a href="#" id="show-login" class="font-medium text-indigo-600 hover:text-indigo-500">sign in</a>
                         </p>
                     </div>
-                    <form class="mt-8 space-y-6" id="signupForm" method="post">
+                    <form class="mt-8 space-y-6" id="signupForm" action="" method="post">
                         <div class="space-y-4">
                             <div>
                                 <label for="signup-Fname" class="block text-sm font-medium text-gray-700">First Name</label>

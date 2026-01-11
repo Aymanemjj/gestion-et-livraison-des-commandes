@@ -1,6 +1,7 @@
 <?php
 
 use App\models\Auth;
+use App\models\Command;
 use App\models\User;
 
 require '../../vendor/autoload.php';
@@ -22,6 +23,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $auth = new Auth();
             $auth->logOut();
             break;
+        
+        case 'command':
+            $command= new Command();
+            
+            break;
+
     }
 }
 
@@ -122,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
             </div>
-            <form id="create-order-form" class="space-y-4">
+            <form id="create-order-form" class="space-y-4" method="post" action="">
                 <div>
                     <label for="order-title" class="block text-sm font-medium text-gray-700">Title</label>
                     <input type="text" id="order-title" required
@@ -147,7 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <button type="submit" class="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
                         Create Order
                     </button>
-                    <button type="button" id="cancel-create-modal" class="flex-1 px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">
+                    <button type="button" name="submit" value="command" id="cancel-create-modal" class="flex-1 px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">
                         Cancel
                     </button>
                 </div>
@@ -164,7 +171,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
             </div>
-            <form id="edit-order-form" class="space-y-4">
+            <form id="edit-order-form" class="space-y-4" method="post" action="">
                 <input type="hidden" id="edit-order-id">
                 <div>
                     <label for="edit-order-title" class="block text-sm font-medium text-gray-700">Title</label>
@@ -230,7 +237,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- Notification Toast Container -->
     <div id="toast-container" class="fixed top-4 right-4 z-50 space-y-2"></div>
 
-    <script src="config/main.js"></script>
+    <script src="../config/main.js"></script>
     <script>
         lucide.createIcons();
         // Initialize client dashboard

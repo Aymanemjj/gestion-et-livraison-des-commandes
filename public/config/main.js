@@ -1,51 +1,5 @@
-// ============================================
-// NO VALIDATION - Just redirect to dashboards
-// ============================================
-// 
-// Login: Enter anything, goes to client dashboard
-// Signup: Enter anything, goes to dashboard based on role you select
-// No validation, no storage, just redirects!
-// ============================================
 
-// Handle login form - no validation, just redirect
 
-function handleLogin(event) {
-    event.preventDefault();
-    
-    // Just redirect to client dashboard - no checking anything!
-    window.location.href = '../views/dashboard-client.php';
-}
-
-// Handle signup form - no validation, just redirect based on role
-function handleSignup(event) {
-    event.preventDefault();
-    
-    // Get the role they selected
-    const role = document.getElementById('signup-role').value;
-    
-    // If no role selected, default to client
-    if (!role || role === '') {
-        window.location.href = '../views/dashboard-client.php';
-        return; 
-    }
-    
-    // Redirect based on role
-    if (role === 'client') {
-        window.location.href = '../views/dashboard-client.php';
-    } else if (role === 'livreur') {
-        window.location.href = '../views/dashboard-livreur.php';
-    } else if (role === 'admin') {
-        window.location.href = '../views/dashboard-admin.php';
-    } else {
-        // Default to client
-        window.location.href = '../views/dashboard-client.php';
-    }
-}
-
-// Logout function - just go back to login page
-function handleLogout() {
-    window.location.href = '../index.php';
-}
 
 // ============================================
 // UI HELPER FUNCTIONS
@@ -229,11 +183,6 @@ function switchTab(tabName) {
 
 // Initialize client dashboard
 function initClientDashboard() {
-    // Set up logout button
-    const logoutBtn = document.getElementById('logout-btn');
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', handleLogout);
-    }
     
     // Set up create order button
     const createBtn = document.getElementById('create-order-btn');
@@ -275,11 +224,7 @@ function initClientDashboard() {
 
 // Initialize livreur dashboard
 function initLivreurDashboard() {
-    // Set up logout button
-    const logoutBtn = document.getElementById('logout-btn');
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', handleLogout);
-    }
+
     
     // Set up tabs
     const marketplaceTab = document.getElementById('tab-marketplace');
@@ -311,11 +256,7 @@ function initLivreurDashboard() {
 
 // Initialize admin dashboard
 function initAdminDashboard() {
-    // Set up logout button
-    const logoutBtn = document.getElementById('logout-btn');
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', handleLogout);
-    }
+
     
     // Set up modal buttons
     const closeEditUserBtn = document.getElementById('close-edit-user-modal');
@@ -395,16 +336,10 @@ function toggleNotifications() {
 
 document.addEventListener('DOMContentLoaded', function() {
     // Set up login form
-    const loginForm = document.getElementById('loginForm');
-    if (loginForm) {
-        loginForm.addEventListener('submit', handleLogin);
-    }
+
     
     // Set up signup form
-    const signupForm = document.getElementById('signupForm');
-    if (signupForm) {
-        signupForm.addEventListener('submit', handleSignup);
-    }
+
     
     // Switch between login and signup forms
     const showSignupLink = document.getElementById('show-signup');

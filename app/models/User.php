@@ -4,7 +4,7 @@ namespace App\models;
 
 class User extends BaseModelUser
 {
-    private ?int $id=null;
+    private ?int $id = null;
 
     private string $firstname;
 
@@ -16,9 +16,9 @@ class User extends BaseModelUser
 
     private int $role;
 
-    private ?bool $status=true;
+    private ?bool $status = true;
 
-/*     public function __construct(string $email, string $password, ?string $firstname, ?string $lastname, ?int $role)
+    /*     public function __construct(string $email, string $password, ?string $firstname, ?string $lastname, ?int $role)
     {
         $this->firstname = $firstname;
         $this->lastname = $lastname;
@@ -125,5 +125,32 @@ class User extends BaseModelUser
         $this->id = $id;
 
         return $this;
+    }
+
+
+    public function setters()
+    {
+        if (isset($_POST['firstname'])) {
+            $this->setFirstname($_POST['firstname']);
+        }
+        if (isset($_POST['lastname'])) {
+            $this->setLastname($_POST['lastname']);
+        }
+        $this->setEmail($_POST['email']);
+        $this->setPassword($_POST['password']);
+
+        if (isset($_POST['role'])) {
+            switch ($_POST['role']) {
+                case 'client':
+                    $this->setRole(2);
+                    break;
+                case 'livreur':
+                    $this->setRole(3);
+                    break;
+                case 'admin':
+                    $this->setRole(1);
+                    break;
+            }
+        }
     }
 }

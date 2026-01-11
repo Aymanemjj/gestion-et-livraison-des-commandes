@@ -1,5 +1,44 @@
+<?php
+
+use App\models\Auth;
+use App\models\User;
+
+require '../../vendor/autoload.php';
+
+session_start();
+
+if (!isset($_SESSION['logged_in'])) {
+    header("Location: ../index.php");
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!isset($_POST['submit'])) {
+        return;
+    }
+    switch ($_POST['submit']) {
+        case 'logout':
+
+            $auth = new Auth();
+            $auth->logOut();
+            break;
+    }
+}
+
+
+?>
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +47,7 @@
     <link rel="stylesheet" href="../config/styles.css">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
+
 <body class="bg-gray-50 min-h-screen">
     <!-- Navbar -->
     <nav id="navbar" class="bg-white shadow-md">
@@ -33,9 +73,11 @@
                         </div>
                     </div>
                     <span id="user-name" class="text-gray-700 font-medium">Livreur</span>
-                    <button id="logout-btn" class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700">
-                        Logout
-                    </button>
+                    <form method="post">
+                        <button type="submit" name="submit" value="logout" href="../index.php" id="logout-btn" class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700">
+                            Logout
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -105,17 +147,17 @@
             <form id="send-offer-form" class="space-y-4">
                 <div>
                     <label for="offer-price" class="block text-sm font-medium text-gray-700">Price (MAD)</label>
-                    <input type="number" id="offer-price" step="0.01" min="0" required 
+                    <input type="number" id="offer-price" step="0.01" min="0" required
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                 </div>
                 <div>
                     <label for="offer-time" class="block text-sm font-medium text-gray-700">Estimated Delivery Time (hours)</label>
-                    <input type="number" id="offer-time" min="1" required 
+                    <input type="number" id="offer-time" min="1" required
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                 </div>
                 <div>
                     <label for="offer-vehicle" class="block text-sm font-medium text-gray-700">Vehicle Type</label>
-                    <select id="offer-vehicle" required 
+                    <select id="offer-vehicle" required
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         <option value="">Select vehicle</option>
                         <option value="motorcycle">Motorcycle</option>
@@ -178,7 +220,7 @@
     <!-- Notification Toast Container -->
     <div id="toast-container" class="fixed top-4 right-4 z-50 space-y-2"></div>
 
-    <script src="config/main.js"></script>
+    <script src="../config/main.js"></script>
     <script>
         lucide.createIcons();
         // Initialize livreur dashboard
@@ -187,6 +229,5 @@
         }
     </script>
 </body>
+
 </html>
-
-

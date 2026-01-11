@@ -11,6 +11,8 @@ class Command extends BaseModelCommand{
 
     private int $user_id;
 
+    private string $adress;
+
 /*     public function __construct($title, $details, $user_id)
     {
         $this->title = $title;
@@ -72,6 +74,20 @@ class Command extends BaseModelCommand{
     public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    /*Get the value of adress*/ 
+    public function getAdress()
+    {
+        return $this->adress;
+    }
+
+    /*Set the value of adress*/ 
+    public function setAdress($adress)
+    {
+        $this->adress = $adress;
 
         return $this;
     }
