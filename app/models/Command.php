@@ -16,6 +16,8 @@ class Command extends BaseModelCommand
 
     private string $created_date;
 
+    private string $status;
+
     /*     public function __construct($title, $details, $user_id)
     {
         $this->title = $title;
@@ -136,5 +138,19 @@ class Command extends BaseModelCommand
             return;
         }
         $this->save();
+    }
+
+    /*Get the value of status*/ 
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /*Set the value of status*/ 
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
     }
 }

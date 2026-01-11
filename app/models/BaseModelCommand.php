@@ -43,12 +43,12 @@ class BaseModelCommand
 
         $stmt = $connexion->prepare($sql);
 
-        $stmt->bindParam(':user_id', $this->user_id, \PDO::PARAM_STR);
+        $stmt->bindParam(':user_id', $_SESSION['user_id'], \PDO::PARAM_STR);
         $stmt->execute();
 
         $stmt->setFetchMode(\PDO::FETCH_CLASS, Command::class);
 
-        return $stmt->fetch();
+        return $stmt->fetchAll();
     }
 
     public function delete()
