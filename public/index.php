@@ -13,7 +13,15 @@ use App\models\User;
 session_start();
 
 if (isset($_SESSION['logged_in'])) {
-    header("Location: " . $_SERVER['HTTP_REFERER']);
+    switch ($_SESSION['role']) {
+        case 2:
+            header("Location: views/dashboard-client.php");
+            break;
+
+        case 3:
+            header("Location: views/dashboard-livreur.php");
+            break;
+    }
     exit;
 }
 
@@ -24,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $auth = new Auth();
     $auth->afterMath();
-
 }
 
 
