@@ -51,6 +51,20 @@ class BaseModelCommand
         return $stmt->fetchAll();
     }
 
+        public function findAll()
+    {
+        $sql = "SELECT * FROM commands";
+        $connexion = Database::getConnexion();
+
+        $stmt = $connexion->prepare($sql);
+
+        $stmt->execute();
+
+        $stmt->setFetchMode(\PDO::FETCH_CLASS, Command::class);
+
+        return $stmt->fetchAll();
+    }
+
     public function delete()
     {
         $sql = "DELETE FROM commands WHERE title = :title";

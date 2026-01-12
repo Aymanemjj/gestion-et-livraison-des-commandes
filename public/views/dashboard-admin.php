@@ -1,5 +1,51 @@
+<?php
+
+use App\models\Administration;
+use App\models\Auth;
+use App\models\Command;
+use App\models\User;
+
+require '../../vendor/autoload.php';
+
+session_start();
+
+if (!isset($_SESSION['logged_in'])) {
+    header("Location: ../index.php");
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    switch ($_POST['submit']) {
+        case 'logout':
+
+            $auth = new Auth();
+            $auth->logOut();
+            break;
+
+        case 'command':
+            $command = new Command();
+            $command->afterMath();
+            break;
+    }
+}
+
+
+?>
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +54,7 @@
     <link rel="stylesheet" href="../config/styles.css">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
+
 <body class="bg-gray-50 min-h-screen">
     <!-- Navbar -->
     <nav id="navbar" class="bg-white shadow-md">
@@ -18,10 +65,13 @@
                     <span class="ml-2 text-xl font-bold text-indigo-600">DeliveryApp</span>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <span id="user-name" class="text-gray-700 font-medium">Administrator</span>
-                    <button id="logout-btn" class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700">
-                        Logout
-                    </button>
+                    <span id="user-name" class="text-gray-700 font-medium"><?php echo $_SESSION['fullname']; ?></span>
+                    <form method="post">
+                        <button type="submit" name="submit" value="logout" id="logout-btn"
+                            class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700">
+                            Logout
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -38,7 +88,13 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm font-medium text-gray-600">Total Orders</p>
-                            <p id="stat-total-orders" class="text-2xl font-bold text-gray-900 mt-2">0</p>
+                            <?php
+                            $admin = new Administration();
+                            $count = $admin->countTotalCommands();
+
+                            echo '<p id="stat-total-orders" class="text-2xl font-bold text-gray-900 mt-2">' . $count . '</p>';
+                            ?>
+
                         </div>
                         <div class="bg-indigo-100 rounded-full p-3">
                             <i data-lucide="package" class="w-6 h-6 text-indigo-600"></i>
@@ -59,15 +115,20 @@
                     </div>
                 </div>
 
-                <!-- Cancelled Orders Card -->
-                <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-red-500">
+                <!-- Pending Orders Card -->
+                <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-yellow-500">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-sm font-medium text-gray-600">Cancelled Orders</p>
-                            <p id="stat-cancelled-orders" class="text-2xl font-bold text-gray-900 mt-2">0</p>
+                            <p class="text-sm font-medium text-gray-600">Pending Orders</p>
+                            <?php
+                            $admin = new Administration();
+                            $count = $admin->countPendingCommands();
+
+                            echo '<p id="stat-total-orders" class="text-2xl font-bold text-gray-900 mt-2">' . $count . '</p>';
+                            ?>
                         </div>
-                        <div class="bg-red-100 rounded-full p-3">
-                            <i data-lucide="x-circle" class="w-6 h-6 text-red-600"></i>
+                        <div class="bg-yellow-100 rounded-full p-3">
+                            <i data-lucide="x-circle" class="w-6 h-6 text-yellow-800"></i>
                         </div>
                     </div>
                 </div>
@@ -77,8 +138,12 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm font-medium text-gray-600">Active Drivers</p>
-                            <p id="stat-active-drivers" class="text-2xl font-bold text-gray-900 mt-2">0</p>
-                        </div>
+                            <?php
+                            $admin = new Administration();
+                            $count = $admin->countActiveDrivers();
+
+                            echo '<p id="stat-total-orders" class="text-2xl font-bold text-gray-900 mt-2">' . $count . '</p>';
+                            ?>                        </div>
                         <div class="bg-blue-100 rounded-full p-3">
                             <i data-lucide="truck" class="w-6 h-6 text-blue-600"></i>
                         </div>
@@ -129,17 +194,17 @@
                 <input type="hidden" id="edit-user-id">
                 <div>
                     <label for="edit-user-name" class="block text-sm font-medium text-gray-700">Name</label>
-                    <input type="text" id="edit-user-name" required 
+                    <input type="text" id="edit-user-name" required
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                 </div>
                 <div>
                     <label for="edit-user-email" class="block text-sm font-medium text-gray-700">Email</label>
-                    <input type="email" id="edit-user-email" required 
+                    <input type="email" id="edit-user-email" required
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                 </div>
                 <div>
                     <label for="edit-user-role" class="block text-sm font-medium text-gray-700">Role</label>
-                    <select id="edit-user-role" required 
+                    <select id="edit-user-role" required
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         <option value="client">Client</option>
                         <option value="livreur">Livreur</option>
@@ -184,6 +249,5 @@
         }
     </script>
 </body>
+
 </html>
-
-

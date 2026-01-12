@@ -126,7 +126,9 @@ class User extends BaseModelUser
 
         return $this;
     }
-
+    public function getFullname() {
+        echo $this->getFirstname() . $this->getLastname();
+    }
 
     public function setters()
     {

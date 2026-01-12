@@ -43,6 +43,9 @@ class Auth
                     $user->save();
                     $this->startSession($user);
                     switch ($user->getRole()) {
+                        case 1:
+                            header("Location: views/dashboard-admin.php");
+                            break;
                         case 2:
                             header("Location: views/dashboard-client.php");
                             exit;
@@ -66,6 +69,9 @@ class Auth
                     $this->startSession($object);
 
                     switch ($object->getRole()) {
+                        case 1:
+                            header("Location: views/dashboard-admin.php");
+                            break;
                         case 2:
                             header("Location: views/dashboard-client.php");
                             break;
@@ -110,6 +116,7 @@ class Auth
     {
         session_start();
         session_regenerate_id(true);
+        $_SESSION['fullname'] = $user->getFullname();
         $_SESSION['user_id'] = $user->getId();
         $_SESSION['email']  = $user->getEmail();
         $_SESSION['role'] = $user->getRole();

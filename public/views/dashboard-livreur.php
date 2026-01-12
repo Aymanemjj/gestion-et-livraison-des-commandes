@@ -1,6 +1,7 @@
 <?php
 
 use App\models\Auth;
+use App\models\Command;
 use App\models\User;
 
 require '../../vendor/autoload.php';
@@ -13,9 +14,7 @@ if (!isset($_SESSION['logged_in'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!isset($_POST['submit'])) {
-        return;
-    }
+
     switch ($_POST['submit']) {
         case 'logout':
 
@@ -72,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
                         </div>
                     </div>
-                    <span id="user-name" class="text-gray-700 font-medium">Livreur</span>
+                    <span id="user-name" class="text-gray-700 font-medium"><?php return $_SESSION['fullname']; ?></span>
                     <form method="post">
                         <button type="submit" name="submit" value="logout" href="../index.php" id="logout-btn" class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700">
                             Logout
@@ -105,14 +104,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <h2 class="text-2xl font-bold text-gray-900">Available Orders</h2>
                 <p class="text-gray-600 mt-1">Browse and send offers for pending orders</p>
             </div>
-            <div id="marketplace-orders" class="space-y-4">
-                <!-- Orders will be dynamically inserted here -->
-            </div>
-            <div id="marketplace-empty" class="hidden text-center py-12">
+
+            <?php
+            $command = new Command();
+            $list = $command->findAll();
+            if (empty($list)) {
+                echo '<!-- Empty State -->
+                        <div id="marketplace-empty" class=" text-center py-12">
                 <i data-lucide="package-search" class="w-16 h-16 text-gray-400 mx-auto mb-4"></i>
                 <h3 class="text-lg font-medium text-gray-900 mb-2">No available orders</h3>
                 <p class="text-gray-500">Check back later for new delivery requests</p>
-            </div>
+            </div>';
+            } else {
+
+                echo '<div id="marketplace-orders" class="space-y-4">
+                 <!-- Orders will be dynamically inserted here -->';
+
+                foreach ($list as $order) {
+                    echo '
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+                <div class="flex justify-between items-start">
+                    <div class="flex-1">
+                        <h3 class="text-lg font-semibold text-gray-900">' . $order->getTitle() . '</h3>
+                        <p class="text-gray-600 mt-1">' . $order->getDetails() . '</p>
+                        <div class="mt-3 flex items-center space-x-4 text-sm text-gray-500">
+                            <span><i data-lucide="map-pin" class="w-4 h-4 inline"></i>' . $order->getAddress() . '</span>
+                            <span><i data-lucide="calendar" class="w-4 h-4 inline"></i>' . $order->getCreated_date() . '</span>
+                        </div>
+                    </div>
+                    <div class="ml-4 flex flex-col items-end space-y-2">
+                        ' . $order->status() . '
+                        <button onclick="viewLivreurOrderDetail(${order.id})" class="px-4 py-2 text-sm bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
+                            View Details
+                        </button>
+                            <button onclick="openSendOfferModal(${order.id})" class="px-4 py-2 text-sm bg-green-600 text-white rounded-md hover:bg-green-700">
+                                Send Offer
+                            </button>                        
+                        <button onclick="viewOrderWithCompetitors(${order.id})" class="px-4 py-2 text-sm bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">
+                            View Competitors
+                        </button>
+                    </div>
+                </div>
+            </div>';
+                }
+
+                echo '</div>';
+            }
+
+
+            ?>
+            
+               
+            
+
         </div>
 
         <!-- My Deliveries Tab -->

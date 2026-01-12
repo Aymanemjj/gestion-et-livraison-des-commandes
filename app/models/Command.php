@@ -153,4 +153,20 @@ class Command extends BaseModelCommand
 
         return $this;
     }
+
+
+public function status() {
+    $badges = [
+        "created"=> '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">Created</span>',
+        "pending"=> '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">Pending</span>',
+        "in-treatment"=> '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">In Treatment</span>',
+        "shipped"=> '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-indigo-100 text-indigo-800">Shipped</span>',
+        "finished"=> '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">Finished</span>',
+        "cancelled"=> '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">Cancelled</span>'
+    ];
+
+    $status = $this->getStatus();
+    return $badges[$status] ?? $badges['pending'];
+}
+
 }
