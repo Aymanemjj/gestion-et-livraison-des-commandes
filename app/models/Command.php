@@ -64,6 +64,7 @@ class Command extends BaseModelCommand
     /*Set the value of user_id*/
     public function setUser_id()
     {
+<<<<<<< HEAD
         $sql = "SELECT * FROM users WHERE id = :user_id LIMIT 1";
         $connexion = Database::getConnexion();
         $stmt = $connexion->prepare($sql);
@@ -78,6 +79,11 @@ class Command extends BaseModelCommand
         }else{
             $this->user_id = $user->getId();
         }
+=======
+        $this->user_id = $_SESSION['user_id'];
+
+        return $this;
+>>>>>>> 0ed15000431b6c4821b39ea3d4ddfe82ed57337c
     }
 
     /*Get the value of id*/
@@ -91,7 +97,11 @@ class Command extends BaseModelCommand
     {
         $this->id = $id;
 
+<<<<<<< HEAD
         return//code... $this;
+=======
+        return $this;
+>>>>>>> 0ed15000431b6c4821b39ea3d4ddfe82ed57337c
     }
 
     /*Get the value of address*/
@@ -151,13 +161,21 @@ class Command extends BaseModelCommand
         $this->save();
     }
 
+<<<<<<< HEAD
     /*Get the value of status*/
+=======
+    /*Get the value of status*/ 
+>>>>>>> 0ed15000431b6c4821b39ea3d4ddfe82ed57337c
     public function getStatus()
     {
         return $this->status;
     }
 
+<<<<<<< HEAD
     /*Set the value of status*/
+=======
+    /*Set the value of status*/ 
+>>>>>>> 0ed15000431b6c4821b39ea3d4ddfe82ed57337c
     public function setStatus($status)
     {
         $this->status = $status;
@@ -166,6 +184,7 @@ class Command extends BaseModelCommand
     }
 
 
+<<<<<<< HEAD
     public function status()
     {
         $badges = [
@@ -180,4 +199,20 @@ class Command extends BaseModelCommand
         $status = $this->getStatus();
         return $badges[$status];
     }
+=======
+public function status() {
+    $badges = [
+        "created"=> '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">Created</span>',
+        "pending"=> '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">Pending</span>',
+        "in-treatment"=> '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">In Treatment</span>',
+        "shipped"=> '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-indigo-100 text-indigo-800">Shipped</span>',
+        "finished"=> '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">Finished</span>',
+        "cancelled"=> '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">Cancelled</span>'
+    ];
+
+    $status = $this->getStatus();
+    return $badges[$status] ?? $badges['pending'];
+}
+
+>>>>>>> 0ed15000431b6c4821b39ea3d4ddfe82ed57337c
 }

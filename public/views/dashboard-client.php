@@ -80,6 +80,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
                         </div>
                     </div>
+<<<<<<< HEAD
+=======
+                    <span id="user-name" class="text-gray-700 font-medium"><?php echo $_SESSION['fullname']; ?></span>
+>>>>>>> 0ed15000431b6c4821b39ea3d4ddfe82ed57337c
                     <form method="post">
                         <button type="submit" name="submit" value="logout" id="logout-btn"
                             class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700">

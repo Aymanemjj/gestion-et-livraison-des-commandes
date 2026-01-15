@@ -6,5 +6,9 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+<<<<<<< HEAD
     'App\\' => array($baseDir . '/library'),
+=======
+    'App\\' => array($baseDir . '/app'),
+>>>>>>> 0ed15000431b6c4821b39ea3d4ddfe82ed57337c
 );

@@ -1,7 +1,11 @@
 {
     "autoload": {
         "psr-4": {
+<<<<<<< HEAD
             "App\\": "library/"
+=======
+            "App\\": "app/"
+>>>>>>> 0ed15000431b6c4821b39ea3d4ddfe82ed57337c
         }
     },
     "license": "proprietary"
